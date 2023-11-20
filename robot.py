@@ -67,6 +67,7 @@ class Robot(Job):
         :param msg: 微信消息结构
         :return: 处理状态，`True` 成功，`False` 失败
         """
+        self.sendTextMsg(f"@我干嘛", msg.roomid)
         return self.toChitchat(msg)
 
     def toChengyu(self, msg: WxMsg) -> bool:
