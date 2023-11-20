@@ -67,7 +67,7 @@ class Robot(Job):
         :param msg: 微信消息结构
         :return: 处理状态，`True` 成功，`False` 失败
         """
-        self.sendTextMsg("test", msg.roomid)
+        self.sendTextMsg(f"@我干嘛", msg.roomid)
         return self.toChitchat(msg)
 
     def toChengyu(self, msg: WxMsg) -> bool:
@@ -126,18 +126,15 @@ class Robot(Job):
         receivers = msg.roomid
         self.sendTextMsg(content, receivers, msg.sender)
         """
-        self.LOG.info("2222222222222")
 
         # 群聊消息
         if msg.from_group():
-            self.LOG.info("3333333")
 
             # 如果在群里被 @
             if msg.roomid not in self.config.GROUPS:  # 不在配置的响应的群列表里，忽略
                 return
 
             if msg.is_at(self.wxid):  # 被@
-                self.LOG.info("1111111111111111")
                 self.toAt(msg)
 
             else:  # 其他消息
@@ -153,7 +150,6 @@ class Robot(Job):
             self.sayHiToNewFriend(msg)
 
         elif msg.type == 0x01:  # 文本消息
-            self.LOG.info("4444444")
             # 让配置加载更灵活，自己可以更新配置。也可以利用定时任务更新。
             if msg.from_self():
                 if msg.content == "^更新$":
