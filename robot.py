@@ -177,6 +177,7 @@ class Robot(Job):
                     msg = wcf.get_msg()
                     self.LOG.info(msg)
                     self.processMsg(msg)
+                    self.LOG.info(msg)
                 except Empty:
                     continue  # Empty message
                 except Exception as e:
