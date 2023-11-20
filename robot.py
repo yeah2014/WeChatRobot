@@ -126,6 +126,7 @@ class Robot(Job):
         receivers = msg.roomid
         self.sendTextMsg(content, receivers, msg.sender)
         """
+        self.LOG.info("2222222222222")
 
         # 群聊消息
         if msg.from_group():
@@ -134,7 +135,7 @@ class Robot(Job):
                 return
 
             if msg.is_at(self.wxid):  # 被@
-                self.LOG.info("@我～～～～")
+                self.LOG.info("1111111111111111")
                 self.toAt(msg)
 
             else:  # 其他消息
