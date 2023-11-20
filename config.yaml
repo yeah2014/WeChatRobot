@@ -15,7 +15,6 @@ logging:
       level: INFO
       formatter: simple
       stream: ext://sys.stdout
-      encoding: utf8
 
     info_file_handler:
       class: logging.handlers.RotatingFileHandler
