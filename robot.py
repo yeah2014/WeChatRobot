@@ -130,6 +130,8 @@ class Robot(Job):
 
         # 群聊消息
         if msg.from_group():
+            self.LOG.info("3333333")
+
             # 如果在群里被 @
             if msg.roomid not in self.config.GROUPS:  # 不在配置的响应的群列表里，忽略
                 return
@@ -151,6 +153,7 @@ class Robot(Job):
             self.sayHiToNewFriend(msg)
 
         elif msg.type == 0x01:  # 文本消息
+            self.LOG.info("4444444")
             # 让配置加载更灵活，自己可以更新配置。也可以利用定时任务更新。
             if msg.from_self():
                 if msg.content == "^更新$":
