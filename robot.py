@@ -98,24 +98,25 @@ class Robot(Job):
         return status
 
     def toChitchat(self, msg: WxMsg) -> bool:
+        return True
         """闲聊，接入 ChatGPT
         """
-        if not self.chat:  # 没接 ChatGPT，固定回复
-            rsp = "你@我干嘛？"
-        else:  # 接了 ChatGPT，智能回复
-            q = re.sub(r"@.*?[\u2005|\s]", "", msg.content).replace(" ", "")
-            rsp = self.chat.get_answer(q, (msg.roomid if msg.from_group() else msg.sender))
-
-        if rsp:
-            if msg.from_group():
-                self.sendTextMsg(rsp, msg.roomid, msg.sender)
-            else:
-                self.sendTextMsg(rsp, msg.sender)
-
-            return True
-        else:
-            self.LOG.error(f"无法从 ChatGPT 获得答案")
-            return False
+        # if not self.chat:  # 没接 ChatGPT，固定回复
+        #     rsp = "你@我干嘛？"
+        # else:  # 接了 ChatGPT，智能回复
+        #     q = re.sub(r"@.*?[\u2005|\s]", "", msg.content).replace(" ", "")
+        #     rsp = self.chat.get_answer(q, (msg.roomid if msg.from_group() else msg.sender))
+        #
+        # if rsp:
+        #     if msg.from_group():
+        #         self.sendTextMsg(rsp, msg.roomid, msg.sender)
+        #     else:
+        #         self.sendTextMsg(rsp, msg.sender)
+        #
+        #     return True
+        # else:
+        #     self.LOG.error(f"无法从 ChatGPT 获得答案")
+        #     return False
 
     def processMsg(self, msg: WxMsg) -> None:
         """当接收到消息的时候，会调用本方法。如果不实现本方法，则打印原始消息。
@@ -133,6 +134,7 @@ class Robot(Job):
                 return
 
             if msg.is_at(self.wxid):  # 被@
+                self.LOG.info("@我～～～～")
                 self.toAt(msg)
 
             else:  # 其他消息
