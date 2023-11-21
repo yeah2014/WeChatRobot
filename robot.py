@@ -69,8 +69,9 @@ class Robot(Job):
         :param msg: 微信消息结构
         :return: 处理状态，`True` 成功，`False` 失败
         """
-        msgContent = urlencode(msg.content)
-        cmd = f"curl http://43.132.210.228?detail={msgContent}"
+        params = {"detail": msg.content}
+        msgContent = urlencode(params)
+        cmd = f"curl http://43.132.210.228?{msgContent}"
         result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
         self.sendTextMsg(f"@我干嘛，{cmd}", msg.roomid)
         return self.toChitchat(msg)
