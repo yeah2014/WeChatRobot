@@ -70,7 +70,7 @@ class Robot(Job):
         """
         cmd = f"curl http://43.132.210.228?detail='{msg.content}'"
         result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
-        self.sendTextMsg(f"@我干嘛，{result}", msg.roomid)
+        self.sendTextMsg(f"@我干嘛，{result.stdout}", msg.roomid)
         return self.toChitchat(msg)
 
     def toChengyu(self, msg: WxMsg) -> bool:
