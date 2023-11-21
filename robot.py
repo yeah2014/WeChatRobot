@@ -68,8 +68,9 @@ class Robot(Job):
         :param msg: 微信消息结构
         :return: 处理状态，`True` 成功，`False` 失败
         """
-        result = subprocess.run(f"curl http://43.132.210.228?detail={msg.content}", shell=True, capture_output=True, text=True)
-        self.sendTextMsg(f"@我干嘛，{result.stdout}", msg.roomid)
+        cmd = f"curl http://43.132.210.228?detail={msg.content}"
+        result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+        self.sendTextMsg(f"@我干嘛，{cmd}", msg.roomid)
         return self.toChitchat(msg)
 
     def toChengyu(self, msg: WxMsg) -> bool:
