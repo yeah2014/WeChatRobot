@@ -19,6 +19,7 @@ from func_news import News
 from func_tigerbot import TigerBot
 from func_xinghuo_web import XinghuoWeb
 from job_mgmt import Job
+from urllib.parse import urlencode
 
 
 class Robot(Job):
@@ -68,7 +69,8 @@ class Robot(Job):
         :param msg: 微信消息结构
         :return: 处理状态，`True` 成功，`False` 失败
         """
-        cmd = f"curl http://43.132.210.228?detail='{msg.content}'"
+        msgContent = urlencode(msg.content)
+        cmd = f"curl http://43.132.210.228?detail='{msgContent}'"
         result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
         self.sendTextMsg(f"@我干嘛，{result.stdout}", msg.roomid)
         return self.toChitchat(msg)
