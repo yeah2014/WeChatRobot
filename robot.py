@@ -70,7 +70,7 @@ class Robot(Job):
         :return: 处理状态，`True` 成功，`False` 失败
         """
         msgContent = urlencode(msg.content)
-        cmd = f"curl http://43.132.210.228?detail='{msgContent}'"
+        cmd = f"curl http://43.132.210.228?detail={msgContent}"
         result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
         self.sendTextMsg(f"@我干嘛，{result.stdout}", msg.roomid)
         return self.toChitchat(msg)
